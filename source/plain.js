@@ -1,11 +1,11 @@
 "use strict";
 
 let plain = list => {
-    let temp = [];
+    let newList = [];
     
     for (let i of list) {
-        temp = (Array.isArray(i)) ? temp.concat(plain(i)) : temp.concat(i);
+        newList = (Array.isArray(i)) ? newList.concat(plain(i)) : newList.concat(i);
     }
     
-    return [...temp];
+    return [...newList];
 };
