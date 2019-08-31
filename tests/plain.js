@@ -35,5 +35,13 @@ QUnit.module('Тестируем функцию plain', function () {
 
 	QUnit.test('Работает с элементами разных типов', function (assert) {
 		assert.deepEqual(plain([ [ 'abcde' ], [ [ 'f' ], [ null, false ], [ NaN, NaN ], NaN ], -Infinity ]), [ 'abcde', 'f', null, false, NaN, NaN, NaN, -Infinity ]);
+		assert.deepEqual(plain([ undefined, [ null, "[[['abcd'],55]]", [ [ [3.14] ], [ false, true, [ 1488 ] ] ] ] ]), [undefined, null, "[[['abcd'],55]]", 3.14, false, true, 1488]);
+	});
+
+	QUnit.test('Работает с объектами', function (assert) {
+		assert.deepEqual(plain([ {} ]), [ {} ], "Работаем с путыми объектами");
+		assert.deepEqual(plain([ {name: "testObj"} ]), [ {name: "testObj"} ]);
+		assert.deepEqual(plain([ {name: "testObj"}, [ null ], ]),[ {name: "testObj"}, null ]);
+		assert.deepEqual(plain([ {name: "testObj", mass: [1,2,3]}, [ 5, [ 'ffa', "D&D" ] ] ]), [ {name: "testObj", mass: [1,2,3]}, 5, 'ffa', "D&D" ]);
 	});
 });
