@@ -1,11 +1,7 @@
 "use strict";
 
+const reducer = (accum, element) => accum = (Array.isArray(element)) ? accum.concat(plain(element)) : accum.concat(element);
+
 let plain = list => {
-    let newList = [];
-    
-    for (let i of list) {
-        newList = (Array.isArray(i)) ? newList.concat(plain(i)) : newList.concat(i);
-    }
-    
-    return [...newList];
+    return [...(list.reduce(reducer, []) )];
 };
